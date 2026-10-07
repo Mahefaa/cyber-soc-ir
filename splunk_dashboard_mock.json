@@ -1,0 +1,17 @@
+{
+  "dashboard": {
+    "title": "Failed Login & Lateral Movement Dashboard",
+    "panels": [
+      {
+        "type": "chart",
+        "search": "index=security sourcetype=WinEventLog:Security EventCode=4625 | timechart count by TargetUserName",
+        "title": "Failed Logins Over Time"
+      },
+      {
+        "type": "table",
+        "search": "index=security sourcetype=WinEventLog:Security EventCode=4624 LogonType=3 | stats count by SourceNetworkAddress, TargetUserName | sort - count",
+        "title": "Suspicious Network Logons (Pass-the-Hash potential)"
+      }
+    ]
+  }
+}
